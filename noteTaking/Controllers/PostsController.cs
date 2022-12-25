@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace noteTaking.Controllers
         }
 
         // GET: Posts
+        [Authorize(Policy = "User Only")]
         public async Task<IActionResult> Index(string searchField)
         {
 
@@ -66,6 +68,7 @@ namespace noteTaking.Controllers
         }
 
         // GET: Posts/Create
+        
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "SubjectName");
